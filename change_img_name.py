@@ -4,8 +4,8 @@ import cv2
 import glob
 import os
 
-
-files = glob.glob("Annotations-02--03-05-2022/*.xml")
-for index,file in enumerate(files,start=1):
-    print(file)
-    os.rename(file, 'Annotations-02--03-05-2022/imagem-{0:003}.xml'.format(index))
+files = glob.glob("Images-02/*.jpg")
+for index,file_ in enumerate(files,start=1):
+	print(file_)
+	id_ = file_.split('/')[-1].replace('.jpg', '').replace('imagem-', '').zfill(3)
+	os.rename(file_, 'Images-02/imagem-{}.jpg'.format(id_))

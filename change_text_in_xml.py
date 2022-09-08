@@ -9,5 +9,5 @@ for file in os.listdir(dir):
     root_xml = tree.getroot()
 
     for folder in root_xml.findall('filename'):
-        folder.text = "{}.jpg".format(file[0:10])
+        folder.text = "{}".format(file.replace('xml', 'jpg'))
     tree.write(os.path.join(dir, file))
