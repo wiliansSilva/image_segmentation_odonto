@@ -3,6 +3,7 @@ import numpy as np
 import cv2
 import glob
 import os
+import argparse
 from PIL import ImageColor, ImageDraw, Image
 
 '''
@@ -16,51 +17,24 @@ root canal treatment = purple
 pulp = red - IGNORAR 
 '''
 
-ANNOTATIONS = "Annotations-02--03-05-2022"
-IMAGES_PATH = "Images-02"
-OUTPUT_PATH = 'Masks-02'
-OUTPUT_COMBINED_PATH = 'Combined-Masks-02'
+# ANNOTATIONS = "Annotations-02--03-05-2022"
+# IMAGES_PATH = "Images-02"
+# OUTPUT_PATH = 'Masks-02'
+# OUTPUT_COMBINED_PATH = 'Combined-Masks-02'
 CLASSES = ['root canal treatment', 'restoration', 'crown', 'dental implant', 'tooth', 'pulp']
 COLORS = ["green", "tomato", "blue", "yellow", "purple", "orange", "white"]
-ANNOTATIONS_NAMES = ['imagem-005',
-                    'imagem-010',
-                    'imagem-011',
-                    'imagem-015',
-                    'imagem-016',
-                    'imagem-017',
-                    'imagem-019',
-                    'imagem-024',
-                    'imagem-030',
-                    'imagem-040',
-                    'imagem-053',
-                    'imagem-057',
-                    'imagem-058',
-                    'imagem-059',
-                    'imagem-061',
-                    'imagem-066',
-                    'imagem-069',
-                    'imagem-077',
-                    'imagem-078',
-                    'imagem-082',
-                    'imagem-085',
-                    'imagem-090',
-                    'imagem-091',
-                    'imagem-095',
-                    'imagem-097',
-                    'imagem-098',
-                    'imagem-106',
-                    'imagem-113',
-                    'imagem-114',
-                    'imagem-119',
-                    'imagem-127',
-                    'imagem-128',
-                    'imagem-130',
-                    'imagem-143'
-]
 
-def main():
+def parse_arguments():
+	parser = argparse.ArgumentParser()
+	parser.add_argument('annotations_path')
+	parser.add_argument('images_path')
+	parser.add_argument('masks_path')
+	parser.add_argument('combined_path')
+	return parser.parse_args()
+
+def main(annotations_path, images_path, masks_path, combined_path):
 	# get all paths to xmls in path
-	files = glob.glob(os.path.join(ANNOTATIONS, "*.xml"))
+	files = glob.glob(os.path.join(annotations_path, "*.xml"))
 	points = []
 	# dic = {}
 
@@ -68,7 +42,7 @@ def main():
 		tree = ET.parse(file)
 		root = tree.getroot()
         # read image to get shape
-		image = cv2.imread(file.replace(ANNOTATIONS,IMAGES_PATH).replace("xml","jpg"))
+		image = cv2.imread(file.replace(annotations_path,images_path).replace("xml","jpg"))
 
 		# create mask image with zeros
 		try:
@@ -125,11 +99,13 @@ def main():
 			# 	dic.update({image_id : i})
 
 			# verifying the existence of some folders
-			if not os.path.exists(OUTPUT_PATH):
-				os.mkdir(OUTPUT_PATH)
-			if not os.path.exists(OUTPUT_COMBINED_PATH):
-				os.mkdir(OUTPUT_COMBINED_PATH)
-			image_masks_path = os.path.join(OUTPUT_PATH, "{}".format(image_id.zfill(3))) # zfill completa oq falta da string com zeros
+			if not os.path.exists(masks_path):
+				os.mkdir(masks_path)
+
+			if not os.path.exists(combined_path):
+				os.mkdir(combined_path)
+
+			image_masks_path = os.path.join(masks_path, "{}".format(image_id.zfill(3))) # zfill completa oq falta da string com zeros
 			if not os.path.exists(image_masks_path):
 				os.mkdir(image_masks_path)
 
@@ -139,16 +115,17 @@ def main():
 				cv2.imwrite(os.path.join(image_masks_path, f"{class_}.png"), mask)
 
 			# saving the combined mask
-			cv2.imwrite(os.path.join(OUTPUT_COMBINED_PATH, "{}.png".format(image_id.zfill(3))), combined)
+			cv2.imwrite(os.path.join(combined_path, "{}.png".format(image_id.zfill(3))), combined)
 
 			print("Created mask from file: ", file)
 
 		except AttributeError:
-			print("shape not found")
+			print("Shape not found")
 
 	# dic_sort = sorted(dic.keys())
 	# for name in dic_sort:
 	# 	print(f"{name} : {dic[name]}")
 
 if __name__ == '__main__':
-    main()
+	args = parse_arguments()
+	main(args.annotations_path, args.images_path, args.masks_path, args.combined_path)
