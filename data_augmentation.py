@@ -12,6 +12,15 @@ IMGS_PATH = './Images/Images-02/*'
 MASKS_PATH = './Masks/Masks-02/'
 CLASSES = ['crown', 'dental implant', 'pulp', 'restoration', 'root canal treatment', 'tooth']
 
+class DatasetTrainer:
+	def __init__(model, batch_size=30, size:tuple[int, int]=(256,256), val_split:float=0.2, data_augmentation:bool=True):
+		self.model = model
+		self.batch_size = batch_size
+		self.size = size
+		self.val_split = val_split
+		self.data_augmentation = data_augmentation
+
+
 def load_data(imgs_path:str, masks_path:str, size:tuple):
 	imgs_path = glob.glob(imgs_path)
 	mask_path = os.listdir(masks_path)
@@ -20,32 +29,33 @@ def load_data(imgs_path:str, masks_path:str, size:tuple):
 	masks = []
 
 	for i, img_file in enumerate(imgs_path):
-		masks_ = []
 		img = io.imread(img_file, as_gray=True)
-		img = transform.resize(img, size)
-		imgs.append(img)
+		imgs_ = crop_img_into_imgs(img, size)
+		imgs.extend(imgs_)
+		masks_ = [ [] for i in range(len(imgs_)) ]
 		masks_names = glob.glob(os.path.join(masks_dirs[i], '*.png'))
 		for j, mask_file in enumerate(masks_names):
+			
+			if i == 0:
+				print(f"Classes order: {mask_file.split('/')[-1].split('.')[0]}")
+
 			mask = io.imread(mask_file, as_gray=True)
-			mask = transform.resize(mask, size)
-			masks_.append(mask)
-		masks.append(masks_)
+			mask_imgs = crop_img_into_imgs(mask, size)
+
+			for u, mask_ in enumerate(mask_imgs):
+				masks_[u].append(mask_)
+
+		masks.extend(masks_)
 
 	return imgs, masks
 
 def pad_img(img:np.ndarray, size:tuple[int, int]) -> np.ndarray:
-	mult_x = img.shape[0] / size[0]
-	mult_y = img.shape[1] / size[1]
-
-	img_padded = np.pad(img, ( (0, (math.ceil(mult_y) * size[1]) - img.shape[1]), (0, (math.ceil(mult_x) * size[0]) - img.shape[0]), (0,0) ), 'constant', constant_values=(0))
-
+	img_padded = np.pad(img, ( (0, size[0] - img.shape[0]), (0, size[1] - img.shape[1]), (0,0) ), 'constant', constant_values=(0))
 	return img_padded
 
 def crop_img_into_imgs(img:np.ndarray, size:tuple[int, int]) -> list[np.ndarray]:
-	width = img.shape[0]
-	height = img.shape[1]
-	mult_x = width / size[0]
-	mult_y = height / size[1]
+	mult_x = img.shape[0] / size[0]
+	mult_y = img.shape[1] / size[1]
 	
 	img_padded = pad_img(img, (size[0] * math.ceil(mult_x), size[1] * math.ceil(mult_y)))
 
@@ -150,6 +160,11 @@ def augment_data(imgs:list[np.ndarray], masks:list[list]):
 	pass
 
 if __name__ == '__main__':
-	imgs, masks = load_data(IMGS_PATH, MASKS_PATH, (512,512))
+	#imgs, masks = load_data(IMGS_PATH, MASKS_PATH, (512,512))
+	img = io.imread('./Images/Images-02/imagem-001.jpg')
+	imgs = crop_img_into_imgs(img, (512,512))
+	for img_ in imgs:
+		plt.imshow(img_)
+		plt.waitforbuttonpress()
 	#resized_imgs, resized_masks = resize_imgs_masks(imgs, masks, (512,512))
-	save_imgs_masks(imgs, masks, './Images/Resized/512', './Masks/Resized/512')
+	#save_imgs_masks(imgs, masks, './Images/Resized/512', './Masks/Resized/512')
