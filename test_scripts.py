@@ -114,6 +114,7 @@ def save_imgs_masks(imgs:list, masks:list, imgs_path:str, masks_path:str):
 		t.join()
 
 if __name__ == '__main__':
+	pass
 	# sm.set_framework('tf.keras')
 	# model = sm.Unet(classes=6, activation='softmax', input_shape=(None, None, 1), encoder_weights=None)
 	# model.compile('Adam', loss=sm.losses.bce_jaccard_loss, metrics=[sm.metrics.iou_score])
