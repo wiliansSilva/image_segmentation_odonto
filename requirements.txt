@@ -1,0 +1,7 @@
+tensorflow
+scikit-image
+sklearn
+matplotlib
+numpy
+python-opencv
+segmentation-models
