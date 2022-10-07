@@ -51,8 +51,8 @@ Quando estiverem disponíveis colocaremos aqui para que seja possível fazer o d
 Algumas das tecnologias que foram aplicadas no projeto:
 
 - Python (linguagem de programação utilizada)
-- Tensorflow e Keras (biblioteca para treinamento da rede neural)
-- Segmentation Models (biblioteca que contém alguns modelos populares de CNN implementados)
+- Tensorflow e Keras (biblioteca para treinamento da CNN)
+- Segmentation Models (biblioteca que contém algumas arquiteturas populares de CNN implementadas)
 - Google Colab (ambiente para treinamento dos modelos)
 - LabelMe (anotação dos pontos de interesse nas imagens)
 
