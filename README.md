@@ -1,7 +1,9 @@
 # DeepRAD: Rede neural para segmentação de imagens para odontologia
 
- <img src="./Divulgacao/Imagens/icone_ufpel_192.png" width="100" height="100" style="border-radius:100px"> <img src="./Divulgacao/Imagens/icone_gaia_192.jpg" width="100" height="100">
-
+<div align="center">
+ 	<img src="./Divulgacao/Imagens/icone_ufpel_192.png" width="100" height="100" style="border-radius:100px"> 
+	<img src="./Divulgacao/Imagens/icone_gaia_192.jpg" width="100" height="100">
+</div>
 <!--![](/Divulgacao/Imagens/icone_gaia_192.jpg)
 ![](/Divulgacao/Imagens/icone_ufpel_192.png)-->
 
@@ -20,16 +22,22 @@ Atualmente esses pontos são:
 
 Importante ressalter que durante o projeto podem vir a serem adicionados novos pontos de interesse que irão ser detectados pelo algoritmo.
 
+---
+
 ## Exemplos
 
 A seguir são apresentados alguns exemplos dos resultados já obtidos:
+
+---
 
 ## Modelos disponíveis
 
 Quando estiverem disponíveis colocaremos aqui para que seja possível fazer o download deles.
 
-## Eventos
 ---
+
+## Eventos
+
 Posters Enviados:
 
 - **12º IEEE CASS (2022):**
@@ -38,7 +46,6 @@ Posters Enviados:
 <!--![](/Divulgacao/Posters/CASSW-RS_Poster_X-RaySegmentation_2022.png)-->
 
 ---
-<br>
 
 ## Tecnologias aplicadas
 
@@ -59,6 +66,8 @@ Algumas das tecnologias que foram aplicadas no projeto:
 <!--## Metodologia
 
 ## Cronograma do projeto-->
+
+---
 
 ## Membros
 
