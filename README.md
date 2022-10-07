@@ -4,8 +4,6 @@
  	<img src="./Divulgacao/Imagens/icone_ufpel_192.png" width="100" height="100" style="border-radius:100px"> 
 	<img src="./Divulgacao/Imagens/icone_gaia_192.jpg" width="100" height="100">
 </div>
-<!--![](/Divulgacao/Imagens/icone_gaia_192.jpg)
-![](/Divulgacao/Imagens/icone_ufpel_192.png)-->
 
 ## Apresentação
 
