@@ -9,7 +9,7 @@
 
 ## Apresentação
 
-O projeto **DeepRAD** do [Grupo de Pesquisa em Inteligência Artificial](https://wp.ufpel.edu.br/gaia/) da [Universidade Federal de Pelotas](https://portal.ufpel.edu.br/) tem como objetivo é a identificação dos elementos dentários presentes, anomalias dentárias e no diagnóstico de doenças bucais (lesões periapicais e lesões de cárie), utilizando radiografias panorâmicas e bitewing.
+O projeto **DeepRAD** do [Grupo de Pesquisa em Inteligência Artificial](https://wp.ufpel.edu.br/gaia/) da [Universidade Federal de Pelotas](https://portal.ufpel.edu.br/) tem como objetivo a identificação dos elementos dentários presentes, anomalias dentárias e no diagnóstico de doenças bucais (lesões periapicais e lesões de cárie), utilizando radiografias panorâmicas e bitewing.
 
 Atualmente está sendo desenvolvido uma Rede Neural Convolucional (CNN) para identificar os seguintes:
 
