@@ -22,30 +22,23 @@ Atualmente esses pontos são:
 
 Importante ressalter que durante o projeto podem vir a serem adicionados novos pontos de interesse que irão ser detectados pelo algoritmo.
 
----
-
 ## Exemplos
 
 A seguir são apresentados alguns exemplos dos resultados já obtidos:
-
----
 
 ## Modelos disponíveis
 
 Quando estiverem disponíveis colocaremos aqui para que seja possível fazer o download deles.
 
----
-
 ## Eventos
 
-Posters Enviados:
+### Posters Enviados
 
 - **12º IEEE CASS (2022):**
 
-<img src="./Divulgacao/Posters/CASSW-RS_Poster_X-RaySegmentation_2022.png" width="500">
-<!--![](/Divulgacao/Posters/CASSW-RS_Poster_X-RaySegmentation_2022.png)-->
-
----
+<div align="center" >
+	<img alt="Poster da 12º IEEE CASS de Guilherme Peglow" src="./Divulgacao/Posters/CASSW-RS_Poster_X-RaySegmentation_2022.png" width="500">
+</div>
 
 ## Tecnologias aplicadas
 
@@ -66,8 +59,6 @@ Algumas das tecnologias que foram aplicadas no projeto:
 <!--## Metodologia
 
 ## Cronograma do projeto-->
-
----
 
 ## Membros
 
