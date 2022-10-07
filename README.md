@@ -28,6 +28,10 @@ Serão analisadas cerca de 100000 radiografias (panorâmicas, periapicais, bitew
 
 Para cada desfecho, o teste de referência será baseado na informação contida nos laudos radiológicos digitais (padrão-ouro) associado às respectivas imagens utilizando processamento de linguagem natural. Será possível utilizar ferramentas de magnificação e aprimoramento das imagens  (contraste e brilho). Será utilizada uma CNN customizada e pré-treinada  e um grid search será desenvolvido.
 
+## Documentação
+
+É possível encontrar a documentação dos códigos do projeto [aqui](./Docs/README.md).
+
 ## Exemplos
 
 A seguir são apresentados alguns exemplos dos resultados já obtidos:
