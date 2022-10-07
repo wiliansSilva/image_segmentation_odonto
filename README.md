@@ -73,6 +73,15 @@ Algumas das tecnologias que foram aplicadas no projeto:
 - Alessandro Bof de Oliveira
 - [Gabriel Leite Bessa](https://github.com/glbessa)
 
+## Instituições parceiras
+
+- **Universidade Federal do Rio Grande do Sul (UFRGS)**
+- **Universidade Federal do Pampa (UNIPAMPA)**
+
+<div align="center">
+	<img src="./Divulgacao/Imagens/icone_ufrgs.jpg" width="100px">
+	<img src="./Divulgacao/Imagens/icone_unipampa2.png" height="75px">
+</div>
 
 ## Metodologia
 
@@ -128,3 +137,65 @@ A AUC está relacionada com a habilidade de evitar uma falsa classificação. A 
 O desenvolvimento métrico primário será AUC, que está relacionada com a habilidade de um teste (no caso desse estudo, um modelo) classificar de maneira correta (saudável/doente).
 
 As métricas secundárias serão a sensibilidade e a especificidade, juntamente com os valores preditivos positivo e negativo (VPP e VPN) (EKERT, T. et.al., 2019).
+
+## Referências
+
+Abesi F, Mirshekar A, Moudi F, Seyedmajidi M, Haghanifar S, Haghighat N, Bijani A. Diagnostic accuracy of digital and conventional radiography in the detection of non-cavitated approximal dental caries. Iran J Radiol. 2012; 9(1):17-21.
+
+Aerts HJWL, Grossmann P, Tan Y, et al. Defining a radiomic response phenotype: a pilot study using targeted therapy in NSCLC. Sci Rep. 2016;6:33860.
+
+Keek SA, Leijenaar RT, Jochems A, et al. A review on radiomics and the future of theranostics for patient selection in precision medi- cine. Br J Radiol. 2018;91:20170926.
+
+Aerts HJWL. The potential of radiomic-based phenotyping in precision medicine: a review. JAMA Oncol. 2016;2:1636–42.
+
+Becker AS, Marcon M, Ghafoor S, Wurnig MC, Frauenfelder T, Boss A. Deep Learning in Mammography: Diagnostic Accuracy of a Multipurpose Image Analysis Software in the Detection of Breast Cancer. Investig Radiol 2017;52(7):434-440.
+
+Buda M, Maki A, Mazurowski M. A systematic study of the class imbalance problem in convolutional neural network. arXiv 2017: arXiv:1710.05381.
+
+Chen H, Zhang K, Lyu P, Li H, Zhang L, Wu J, Lee CH. A deep learning approach to automatic teeth detection and numbering based on object detection in dental periapical films. Scientific Reports 2019 9:3840. doi.org/10.1038/s41598-019-40414-y.
+
+Chung JS, Senior AW, Viyals O, Zisseman A. Lip reading sentences in the wild. In: CVPR 2017; 3444-3453.
+
+Constanzo J, Wei L, Tseng HH, et al. Radiomics in precision medi- cine for lung cancer. 
+
+Transl Lung Cancer Res. 2017;6:635–47.
+
+Ekert T, Krois J, Meinhold L, Elhennawy K, Emara R, Golla T, Schwendicke F. Deep learning for the radiographic detection of apical lesions. Journal of Endodontics 2019.
+
+Esteva A, Kuprel B, Novoa RA, Ko J, Swetter SM, Blau HM, et al. Dermatologist-level classification of skin cancer with deep neural networks. Nature 2017;542(7639):115-118.
+
+Giardino A, Gupta S, Olson E, et al. Role of imaging in the era of precision medicine. Acad Radiol. 2017;24:639–49.
+
+Gulshan V, Peng L, Coram M, Stumpe MC, Wu D, Narayanaswamy A, et al. Development and Validation of a Deep Learning Algorithm for Detection of Diabetic Retinopathy in Retinal Fundus Photographs. JAMA 2016;316(22):2402-2410.
+
+Gwet KL. 2008. Computing inter-rater reliability and its variance in the presence of high agreement. Br J Math Stat Psychol. 61(1):29–48.
+
+Hussain Z, Gimenez F, Yi D, Rubin D. Differential data augmentation techniques for medical imaging classification tasks. In: AMIA Annual Symposium Proceedings. 2017; p979.
+
+Ioffe S, Szegedy C. Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift. arXiv 2015:arXiv:150203167.
+
+LeCun Y, Bengio Y, Hinton G. Deep learning. Nature 2015;521(7553):436-444.
+
+Lee JH, Kim DH, Jeong SN, Choi SH. Detection and diagnosis of dental caries using a deep learning-based convolutional neural network algorithm. Journal of dentistry 2018a;77:106-111.
+
+Lee JH, Kim DH, Jeong SN, Choi SH. Diagnosis and prediction of periodontally compromised teeth using a deep learning-based convolutional neural network algorithm. J Periodont Impl Sci 2018b;48(2):114-123.
+
+Litjens G, Kooi T, Bejnordi BE, Setio AAA, Ciompi F, Ghafoorian M, et al. A survey on deep learning in medical image analysis. Med Image Analysis 2017;42:60-88.
+
+Mazurowski MA, Buda M, Saha A, Bashir MR. Deep learning in radiology: an overview of the concepts and a survey of the state of the art with focus on MRI. J Magn Reson Imaging 2019; 49(4):939-954.
+
+Poedjiastoeti W, Suebnukarn S. Application of Convolutional Neural Network in the Diagnosis of Jaw Tumors. Healthc Inform Res. 2018;24(3):236-241.
+
+Schwendicke F, Tzschoppe M, Paris S. Radiographic caries detection: a systematic review and meta-analysis. Journal of Dentistry 2015; doi http://dx.doi.org/10.1016/j.dent.2015.02.009
+
+Schwendicke F, Golla T, Dreher M, Krois J. Convolutional neural networks for dental image diagnostics: A scoping review. 2019; doi https://doi.org/10.1016/j.jdent.2019.103226
+
+Schwendicke F, Elhennawy K, Paris S, Friebertsha ̈user P, Krois J, Deep Learning for Caries Lesion Detection in Near-Infrared Light Transillumination Images: A Pilot Study, Journal of Dentistry. 2020; doi:https://doi.org/10.1016/j.jdent.2019.103260
+
+Scott WA. Reliability of Content Analysis: The Case of Nominal Scale Coding.Public Opin Q. 1955; 19(3):321.
+
+Sokolova M, Lapalme G. A systematic analysis of performance measures for classification tasks. Inf Process Manag. 2009; 45(4):427–437.
+
+Taygman Y, Yang M, Ranzato M, Wolf L. DeepFace: Closing the Gap to Human Level Performance in Face Verification. In: Proc IEEE Conf Comput Vis Pattern Recognit 2014; 1701-1708.
+
+Wu R, Yan S, Shan Y, Dang Q, Sun G. Deep image: sacling uo image recognition. arXiv Prep 2015; arXiv150102876.
