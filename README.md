@@ -1,4 +1,4 @@
-# DeepRAD: Rede neural para segmentação de imagens para odontologia
+# DeepRAD: Rede neural para segmentação de imagens odontológicas
 
 <div align="middle">
  	<img src="./Divulgacao/Imagens/icone_ufpel_192.png" width="100px" height="100px" align="middle"> 
