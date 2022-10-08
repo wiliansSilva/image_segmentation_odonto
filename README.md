@@ -1,8 +1,8 @@
 # DeepRAD: Rede neural para segmentação de imagens para odontologia
 
-<div align="center">
- 	<img src="./Divulgacao/Imagens/icone_ufpel_192.png" width="100" height="100" style="border-radius:100px"> 
-	<img src="./Divulgacao/Imagens/icone_gaia_192.jpg" width="100" height="100">
+<div align="middle">
+ 	<img src="./Divulgacao/Imagens/icone_ufpel_192.png" width="100px" height="100px" align="middle"> 
+	<img src="./Divulgacao/Imagens/icone_gaia_192_cortada.png" width="85px" height="85px" align="middle">
 </div>
 
 ## Apresentação
