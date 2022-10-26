@@ -36,19 +36,7 @@ Atualmente, o dataset é composto de radiografias e suas respectivas máscaras (
 
 Abaixo é apresentado algumas imagens geradas da combinação das radiografias e suas máscaras para visualização do problema presente:
 
-<figure align="center">
-	<img src="./Masks/Combined-Images-02/imagem-002.png" height="300px">
-	<img src="./Masks/Combined-Images-02/imagem-058.png" height="300px">
-	<img src="./Masks/Combined-Images-01/imagem-029.png" height="300px">
-	<img src="./Masks/Combined-Images-02/imagem-011.png" height="300px">
-	<figcaption>
-		Superior esquerdo: <a href="./Masks/Combined-Images-02/imagem-002.png">Imagem combinada 1</a> | 
-		Superior direito: <a href="./Masks/Combined-Images-02/imagem-058.png">Imagem combinada 2</a> |
-		Inferior esquerdo: <a href="./Masks/Combined-Images-01/imagem-029.png">Imagem combinada 3</a> |
-		Inferior direito: <a href="./Masks/Combined-Images-02/imagem-011.png">Imagem combinada 4</a>
-	</figcaption>
-	<figcaption>Rosa salmão - Restauração | Azul - Coroa | Verde - Tratamento de canal | Amerelo - Implante dental | Retângulos roxos - Dentes</figcaption>
-</figure>
+<br>
 
 - [Imagem combinada 1](./Masks/Combined-Images-02/imagem-002.png):
 
