@@ -48,14 +48,14 @@ Abaixo é apresentado algumas imagens geradas da combinação das radiografias e
 <br>
 
 - [Imagem combinada 2](./Masks/Combined-Images-02/imagem-058.png):
-<figure>
+<figure align="center">
 	<img src="./Masks/Combined-Images-02/imagem-058.png" height="300px">
 	<figcaption>Rosa salmão - Restauração | Azul - Coroa | Verde - Tratamento de canal | Retângulos roxos - Dentes</figcaption>
 </figure>
 
 - [Imagem combinada 3](./Masks/Combined-Images-01/imagem-029.png): 
 
-<figure>
+<figure align="center">
 	<img src="./Masks/Combined-Images-01/imagem-029.png" height="300px">
 	<figcaption>Rosa salmão - Restauração | Retângulos roxos - Dentes</figcaption>
 </figure>

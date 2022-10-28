@@ -2,7 +2,8 @@ from skimage import io, transform, util
 import numpy as np
 import glob
 import math
-import matplotlib.pyplot as plt
+import random
+import argparse
 
 class DataAugmentation():
 	@staticmethod
@@ -19,18 +20,23 @@ class DataAugmentation():
 		
 		return img_padded
 
-	@classmethod
-	def crop_img_into_imgs(cls, img:np.ndarray, size:tuple[int, int]) -> list[np.ndarray]:
-		mult_x = img.shape[0] / size[0]
-		mult_y = img.shape[1] / size[1]
+	@staticmethod
+	def slice_img(img:np.ndarray, size:int) -> list[np.ndarray]:
+		mult_x = math.ceil(img.shape[0] / size)
+		mult_y = math.ceil(img.shape[1] / size)
 		
-		img_padded = cls.pad_img(img, (size[0] * math.ceil(mult_x), size[1] * math.ceil(mult_y)))
-
 		imgs = []
 
-		for i in range(math.ceil(mult_x)):
-			for j in range(math.ceil(mult_y)):
-				imgs.append(img_padded[(i * size[0]):((i + 1) * size[0]), (j * size[1]):((j + 1) * size[1])])
+		for i in range(mult_x):
+			for j in range(mult_y):
+				if (i == mult_x - 1) and (j == mult_y - 1):
+					imgs.append(img[(img.shape[0] - size):(img.shape[0]), (img.shape[1] - size):(img.shape[1])])
+				elif j == mult_y - 1:
+					imgs.append(img[(i * size):((i + 1) * size), (img.shape[1] - size):(img.shape[1])])
+				elif i == mult_x - 1:
+					imgs.append(img[(img.shape[0] - size):(img.shape[0]), (j * size):((j + 1) * size)])
+				else:
+					imgs.append(img[(i * size):((i + 1) * size), (j * size):((j + 1) * size)])
 			
 		return imgs
 
@@ -44,6 +50,62 @@ class DataAugmentation():
 
 		return resized_img, resized_masks_
 
+	@staticmethod
+	def rotate_img_mask(img:np.ndarray, masks:list, angle:float):
+		rotated_img = transform.rotate(img, angle)
+		rotated_masks = [ transform.rotate(mask, angle, mode='wrap') for mask in masks ]
+
+		return rotated_img, rotated_masks
+
+	@staticmethod
+	def fliplr_img_mask(img:np.ndarray, masks:list) -> tuple[np.ndarray, list]:
+		flipped_img = np.fliplr(img)
+		flipped_masks = [ np.fliplr(mask) for mask in masks ]
+		
+		return flipped_img, flipped_masks
+
+	@staticmethod
+	def flipud_img_mask(img:np.ndarray, masks:list) -> tuple[np.ndarray, list]:
+		flipped_img = np.flipud(img)
+		flipped_masks = [ np.flipud(mask) for mask in masks ]
+		
+		return flipped_img, flipped_masks
+
+	@staticmethod
+	def random_noise_img_mask(img:np.ndarray, mode='gaussian') -> np.array:
+		return util.random_noise(img, mode)
+
+	@staticmethod
+	def random_noise_imgs_masks(imgs:list[np.ndarray], masks:list, mode='gaussian') -> tuple[list, list]:
+		noised_imgs = [ util.random_noise(img, mode) for img in imgs ]
+
+		return noised_imgs, masks
+
+	@staticmethod
+	def random_darkness(img) -> np.array:
+		return exposure.adjust_gamma(img, random.uniform(1.01, 1.5))
+
+	@staticmethod
+	def random_brightness(img) -> np.array:
+		return exposure.adjust_gamma(img, random.uniform(0.5, 0.99))
+
+	#####
+
+	@classmethod
+	def crop_img_into_imgs_with_pad(cls, img:np.ndarray, size:tuple[int, int]) -> list[np.ndarray]:
+		mult_x = img.shape[0] / size[0]
+		mult_y = img.shape[1] / size[1]
+		
+		img_padded = cls.pad_img(img, (size[0] * math.ceil(mult_x), size[1] * math.ceil(mult_y)))
+
+		imgs = []
+
+		for i in range(math.ceil(mult_x)):
+			for j in range(math.ceil(mult_y)):
+				imgs.append(img_padded[(i * size[0]):((i + 1) * size[0]), (j * size[1]):((j + 1) * size[1])])
+			
+		return imgs
+
 	@classmethod
 	def resize_imgs_masks(cls, imgs:list[np.ndarray], masks:list[list], size:tuple[int, int]):
 		resized_imgs = []
@@ -55,13 +117,6 @@ class DataAugmentation():
 			resized_masks.append(resized_masks_)
 
 		return resized_imgs, resized_masks
-
-	@staticmethod
-	def rotate_img_mask(img:np.ndarray, masks:np.ndarray, angle:float):
-		rotated_img = transform.rotate(img, angle)
-		rotated_masks = transform.rotate(masks, angle)
-
-		return rotated_img, rotated_masks
 
 	@classmethod
 	def rotate_imgs_masks(cls, imgs:list[np.ndarray], masks:list, angle:float):
@@ -75,13 +130,6 @@ class DataAugmentation():
 
 		return rotated_imgs, rotated_masks
 
-	@staticmethod
-	def fliplr_img_mask(img:np.ndarray, mask:np.ndarray) -> tuple[np.ndarray, list]:
-		flipped_img = np.fliplr(img)
-		flipped_mask = np.fliplr(mask)
-		
-		return flipped_img, flipped_mask
-
 	@classmethod
 	def fliplr_imgs_masks(cls, imgs:list[np.ndarray], masks:list) -> tuple[list, list]:
 		flipped_imgs = []
@@ -92,18 +140,3 @@ class DataAugmentation():
 			flipped_masks.append(flipped_masks_)
 
 		return flipped_imgs, flipped_masks
-
-	@staticmethod
-	def random_noise_imgs_masks(imgs:list[np.ndarray], masks:list, mode='gaussian') -> tuple[list, list]:
-		noised_imgs = []
-		for img in imgs:
-			noised_imgs.append(util.random_noise(img, mode))
-
-		return noised_imgs, masks
-
-if __name__ == '__main__':
-	img = io.imread('./Images/Images-02/imagem-053.jpg', as_gray=True)
-	imgs = DataAugmentation.crop_img_into_imgs(img, (256,256))
-	for img_ in imgs:
-		plt.imshow(img_)
-		plt.waitforbuttonpress()
