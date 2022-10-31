@@ -7,6 +7,7 @@ import argparse
 from DataAugmentation import DataAugmentation
 from tqdm import tqdm
 
+'''
 def augmentation_routine(img, masks):
 	augmented_imgs = []
 	augmented_masks = []
@@ -36,7 +37,7 @@ def augmentation_routine(img, masks):
 		augmented_masks.append(aug_mask)
 
 	return augmented_imgs, augmented_masks
-'''
+
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser()

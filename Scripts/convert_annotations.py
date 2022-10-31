@@ -1,6 +1,7 @@
 import xml.etree.ElementTree as ET
 import numpy as np
 import cv2
+from skimage import io, util
 import glob
 import os
 import argparse
@@ -47,7 +48,7 @@ def main(annotations_path, images_path, masks_path, combined_path):
 		# create mask image with zeros
 		try:
 			# creating masks with zeros
-			masks = [ np.zeros(image.shape) for class_ in CLASSES ]
+			masks = [ np.zeros((image.shape[0], image.shape[1]), dtype=np.uint8) for class_ in CLASSES ]
 			
 			# creating a combined mask for visualization
 			combined = np.zeros(image.shape)
@@ -76,7 +77,6 @@ def main(annotations_path, images_path, masks_path, combined_path):
 					# getting the index of the class
 					class_index = CLASSES.index(class_)
 					color = 1
-					#color = (255, 0, 0)
 					
 					r, g, b = ImageColor.getrgb(COLORS[class_index])
 					
@@ -100,22 +100,24 @@ def main(annotations_path, images_path, masks_path, combined_path):
 
 			# verifying the existence of some folders
 			if not os.path.exists(masks_path):
-				os.mkdir(masks_path)
+				os.makedirs(masks_path)
 
 			if not os.path.exists(combined_path):
-				os.mkdir(combined_path)
+				os.makedirs(combined_path)
 
-			image_masks_path = os.path.join(masks_path, "{}".format(image_id.zfill(3))) # zfill completa oq falta da string com zeros
+			image_masks_path = os.path.join(masks_path, f"{image_id.zfill(3)}") # zfill completa oq falta da string com zeros
+			
 			if not os.path.exists(image_masks_path):
-				os.mkdir(image_masks_path)
+				os.makedirs(image_masks_path)
 
 			# saving each class into a mask individually
 			for i, mask in enumerate(masks):
 				class_ = CLASSES[i]
+				#io.imsave(os.path.join(image_masks_path, f"{class_}.png"), mask, check_contrast=False)
 				cv2.imwrite(os.path.join(image_masks_path, f"{class_}.png"), mask)
 
 			# saving the combined mask
-			cv2.imwrite(os.path.join(combined_path, "{}.png".format(image_id.zfill(3))), combined)
+			cv2.imwrite(os.path.join(combined_path, f"{image_id.zfill(3)}.png"), combined)
 
 			print("Created mask from file: ", file)
 
