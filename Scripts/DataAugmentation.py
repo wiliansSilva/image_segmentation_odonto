@@ -9,19 +9,23 @@ class DataAugmentation():
 	@staticmethod
 	def pad_img(img:np.ndarray, size:tuple[int, int]) -> np.ndarray:
 		img_padded = None
+		x_pad = size[0] - (img.shape[0] % size[0])
+		y_pad = size[1] - (img.shape[1] % size[1])
+
 
 		# verifica se a imagem tem somente um canal
 		if len(img.shape) == 2:
-			img_padded = np.pad(img, ( (0, size[0] - img.shape[0]), (0, size[1] - img.shape[1])), 'constant', constant_values=(0))
+			img_padded = np.pad(img, ((0, x_pad), (0, y_pad)), 'constant', constant_values=(0))
 
 		# verifica se a imagem tem mais de um canal
-		elif len(img.shape) == 3:
-			img_padded = np.pad(img, ( (0, size[0] - img.shape[0]), (0, size[1] - img.shape[1]), (0,0) ), 'constant', constant_values=(0))
-		
+		#elif len(img.shape) == 3:
+		#	img_padded = np.pad(img, ( (0, x_pad), (0, y_pad), (0,0) ), 'constant', constant_values=(0))
+
+		#print(img_padded.shape)
 		return img_padded
 
 	@staticmethod
-	def slice_img(img:np.ndarray, size:int) -> list[np.ndarray]:
+	def split_img(img:np.ndarray, size:int) -> list[np.ndarray]:
 		mult_x = math.ceil(img.shape[0] / size)
 		mult_y = math.ceil(img.shape[1] / size)
 		
@@ -37,8 +41,24 @@ class DataAugmentation():
 					imgs.append(img[(img.shape[0] - size):(img.shape[0]), (j * size):((j + 1) * size)])
 				else:
 					imgs.append(img[(i * size):((i + 1) * size), (j * size):((j + 1) * size)])
-			
+		
+		#print(len(imgs))
+
 		return imgs
+
+	@staticmethod
+	def split_img2(img:np.ndarray, size:int) -> list[np.ndarray]:
+		mult_x = img.shape[0] // size
+		mult_y = img.shape[1] // size
+
+		all_imgs = []
+		imgs = np.array_split(img, mult_y, axis=1)
+		for im in imgs:
+			all_imgs.append(np.array_split(im, mult_x, axis=0))
+
+		#print(np.stack(all_imgs).shape)
+		#all_img = np.concatenate(all_imgs, axis=0)
+		return all_img
 
 	@staticmethod
 	def resize_img_mask(img:np.ndarray, masks:list, size:tuple[int, int]):
