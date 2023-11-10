@@ -10,7 +10,7 @@ class Discriminator(nn.Module):
             nn.LeakyReLU(0.2),
             self._block(features_d, features_d * 2, 4, 2, 1),
             self._block(features_d * 2, features_d * 4, 4, 2, 1),
-            self._block(features_d * 4, features_d * 8, 4, 2, 1)
+            self._block(features_d * 4, features_d * 8, 4, 2, 1),
             nn.Conv2d(features_d * 8, 1, kernel_size=4, stride=2, padding=0),
             nn.Sigmoid() # Fake or real (i'll try softmax later)
         )

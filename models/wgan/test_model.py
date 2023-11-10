@@ -1,8 +1,8 @@
 import torch
 from torch import nn
 
-from critic import Critic
 from generator import Generator
+from critic import Critic
 
 def test():
     N, in_channels, H, W = 8, 3, 64, 64
