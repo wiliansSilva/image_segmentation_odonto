@@ -1,4 +1,9 @@
-import tensorflow as tf
+import torch
+from torch import nn
 
-def Unet():
-    pass
+class UNet(nn.Module):
+    def __init__(self):
+        super().__init__()
+
+    def forward(self, x):
+        return x
