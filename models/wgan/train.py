@@ -5,19 +5,21 @@ from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
 from torch.utils.tensorboard import SummaryWriter
 
-from discriminator import Discriminator
+from critic import Critic
 from generator import Generator
 from utils import initialize_weights
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-LR = 2e-4
-BATCH_SIZE = 128
+LR = 5e-5
+BATCH_SIZE = 64
 IMAGE_SIZE = 64
 CHANNELS_IMG = 1
 Z_DIM = 100
 NUM_EPOCHS = 5
 FEATURES_DISC = 64
 FEATURES_GEN = 64
+CRITIC_ITERATIONS = 5
+WEIGHT_CLIP = 0.01 # c in paper
 
 if __name__ == "__main__":
     transf = transforms.Compose([
@@ -31,14 +33,15 @@ if __name__ == "__main__":
     dataset = datasets.MNIST(root="dataset/", train=True, transforms=transf, download=True)
     #dataset = datasets.ImageFolder(root="dataset/", train=True, transforms=transf)
     loader = DataLoader(dataset, batch_size=BATCH_SIZE, shuffle=True)
+    
     gen = Generator(Z_DIM, CHANNELS_IMG, FEATURES_GEN).to(DEVICE)
-    disc = Discriminator(CHANNELS_IMG, FEATURES_DISC).to(DEVICE)
-    initialize_weights(gen)
-    initialize_weights(disc)
+    critic = Critic(CHANNELS_IMG, FEATURES_DISC).to(DEVICE)
 
-    opt_gen = optim.Adam(gen.parameters(), lr=LR, betas=(0.5, 0.999))
-    opt_disc = optim.Adam(disc.parameters(), lr=LR, betas=(0.5, 0.999))
-    criterion = nn.BCELoss()
+    initialize_weights(gen)
+    initialize_weights(critic)
+
+    opt_gen = optim.RMSprop(gen.parameters(), lr=LR)
+    opt_critic = optim.RMSprop(critic.parameters(), lr=LR)
 
     fixed_noise = torch.randn(32, Z_DIM, 1, 1).to(DEVICE)
     writer_real = SummaryWriter(f"logs/real")
@@ -46,25 +49,28 @@ if __name__ == "__main__":
     step = 0
 
     gen.train()
-    disc.train()
+    critic.train()
 
     for epoch in range(NUM_EPOCHS):
         for batch_idx, (real, _) in enumerate(loader):
             real = real.to(DEVICE)
-            noise = torch.randn((BATCH_SIZE, Z_DIM, 1, 1)).to(DEVICE)
-            fake = gen(noise)
 
-            disc_real = disc(real).reshape(-1)
-            loss_disc_real = criterion(disc_real, torch.ones_like(disc_real))
-            disc_fake = disc(fake).reshape(-1)
-            loss_disc_fake = criterion(disc_fake, torch.zeros_like(disc_fake))
-            loss_disc = (loss_disc_real + loss_disc_fake) / 2
-            disc.zero_grad()
-            loss_disc.backward(retain_graph=True)
-            opt_disc.step()
+            for _ in range(CRITIC_ITERATIONS):
+                noise = torch.randn((BATCH_SIZE, Z_DIM, 1, 1)).to(DEVICE)
+                fake = gen(noise)
+            
+                critic_real = critic(real).reshape(-1)
+                critic_fake = critic(fake).reshape(-1)
+                loss_critic = -(torch.mean(cricit_real) - torch.mean(critic_fake))
+                critic.zero_grad()
+                loss_critic.backward(retain_graph=True)
+                opt_critic.step()
 
-            output = disc(fake).reshape(-1)
-            loss_gen = criterion(output, torch.ones_like(output))
+                for p in critic.parameters():
+                    p.data.clamp_(-WEIGHT_CLIP, WEIGHT_CLIP)
+
+            output = critic(fake).reshape(-1)
+            loss_gen = -torch.mean(output)
             gen.zero_grad()
             loss_gen.backward()
             opt_gen.step()
