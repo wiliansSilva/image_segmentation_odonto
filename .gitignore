@@ -1,0 +1,27 @@
+*.ipynb
+.ipynb_checkpoints
+.vscode
+__pycache__
+
+dentalxray
+Dockerfile
+backups/Models
+WebApp
+Treinamento
+jupyter_notebooks
+observacoes.txt
+imagens_com_problemas.txt
+
+# Images
+#Images/*
+#!Images/*.zip
+
+# Masks
+#Masks/*
+#!Masks/*.zip
+
+# Dataset
+datasets
+!datasets/*.md
+!datasets/*.py
+#!Dataset/*.zip

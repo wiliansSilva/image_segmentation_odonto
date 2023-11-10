@@ -16,8 +16,8 @@ IMAGE_SIZE = 64
 CHANNELS_IMG = 1
 Z_DIM = 100
 NUM_EPOCHS = 5
-FEATURES_DISC = 64
-FEATURES_GEN = 64
+FEATURES_DISC = 16
+FEATURES_GEN = 16
 CRITIC_ITERATIONS = 5
 LAMBDA_GP = 10
 
@@ -30,8 +30,8 @@ if __name__ == "__main__":
         )
     ])
 
-    dataset = datasets.MNIST(root="dataset/", train=True, transforms=transf, download=True)
-    #dataset = datasets.ImageFolder(root="dataset/", train=True, transforms=transf)
+    dataset = datasets.MNIST(root="dataset/", train=True, transform=transf, download=True)
+    #dataset = datasets.ImageFolder(root="dataset/", transform=transf)
     loader = DataLoader(dataset, batch_size=BATCH_SIZE, shuffle=True)
     
     gen = Generator(Z_DIM, CHANNELS_IMG, FEATURES_GEN).to(DEVICE)
@@ -62,7 +62,7 @@ if __name__ == "__main__":
                 critic_real = critic(real).reshape(-1)
                 critic_fake = critic(fake).reshape(-1)
                 gp = gradient_penalty(critic, real, fake, device=DEVICE)
-                loss_critic = -(torch.mean(cricit_real) - torch.mean(critic_fake)) + LAMBDA_GP * gp
+                loss_critic = -(torch.mean(critic_real) - torch.mean(critic_fake)) + LAMBDA_GP * gp
                 critic.zero_grad()
                 loss_critic.backward(retain_graph=True)
                 opt_critic.step()
@@ -80,7 +80,7 @@ if __name__ == "__main__":
                     img_grid_real = torchvision.utils.make_grid(real[:32], normalize=True)
                     img_grid_fake = torchvision.utils.make_grid(fake[:32], normalize=True)
 
-                    write_real.add_image("Real", img_grid_real, global_step=step)
-                    write_fake.add_image("Fake", img_grid_fake, global_step=step)
+                    writer_real.add_image("Real", img_grid_real, global_step=step)
+                    writer_fake.add_image("Fake", img_grid_fake, global_step=step)
 
                 step += 1
